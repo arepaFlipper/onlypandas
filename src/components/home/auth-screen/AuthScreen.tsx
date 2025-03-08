@@ -1,10 +1,12 @@
-import React from 'react'
+import HeroSection from './HeroSection';
 
 type Props = {}
 
 const AuthScreen = (props: Props) => {
   return (
-    <div className="text-primary font-bold text-2xl">AuthScreen</div>
+    <div className="text-primary font-bold text-2xl">
+      <HeroSection />
+    </div>
   )
 }
 

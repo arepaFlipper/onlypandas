@@ -1,4 +1,5 @@
 import Image from "next/image";
+import AuthButtons from "./AuthButtons";
 
 const HeroSection = () => {
   return (
@@ -24,6 +25,7 @@ const HeroSection = () => {
             Built for <span className='bg-stone-800 font-bold px-2 text-white whitespace-nowrap'>Pandas 🐼</span> and{" "}
             <span className='bg-red-500 px-2 font-bold text-white'>OTHERS 😏</span>
           </p>
+          <AuthButtons />
         </div>
       </div>
 

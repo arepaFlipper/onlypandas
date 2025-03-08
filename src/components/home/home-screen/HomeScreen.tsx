@@ -1,10 +1,11 @@
-import React from 'react'
+"use client"
+import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
-type Props = {}
-
-const HomeScreen = (props: Props) => {
+const HomeScreen = () => {
   return (
-    <div>HomeScreen</div>
+    <div>
+      <LogoutLink>Logout</LogoutLink>
+    </div>
   )
 };
 

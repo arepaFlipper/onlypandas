@@ -1,6 +1,7 @@
-import ModeToggle from '@/components/ModeToggle';
+// import ModeToggle from '@/components/ModeToggle';
 import HeroSection from './HeroSection';
 import UnderlinedText from '@/components/decorators/UnderlinedText';
+import TodaysHighlight from './TodaysHighlight';
 
 const AuthScreen = () => {
   return (
@@ -15,7 +16,10 @@ const AuthScreen = () => {
             <span className="text-2xl md:text-4xl ml-1">👇</span>
           </p>
 
-          {/* <Highlight /> */}
+          {/* Featured Post */}
+          <div className="flex flex-col gap-10 mt-10">
+            <TodaysHighlight />
+          </div>
         </div>
       </div>
     </div>

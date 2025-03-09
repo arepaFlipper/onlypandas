@@ -1,10 +1,10 @@
+import ModeToggle from '@/components/ModeToggle';
 import HeroSection from './HeroSection';
 
-type Props = {}
-
-const AuthScreen = (props: Props) => {
+const AuthScreen = () => {
   return (
     <div className="text-primary font-bold text-2xl">
+      <ModeToggle />
       <HeroSection />
     </div>
   )

@@ -13,7 +13,7 @@ const HeroSection = () => {
         />
         <div className='flex flex-col gap-2 px-4 xl:ml-40 text-center md:text-start font-semibold'>
           <Image
-            src={"/onlyfans.png"} alt='Onlypandas Logo' width={769} height={182}
+            src={"/onlypandas.png"} alt='Onlypandas Logo' width={769} height={182}
             className='mt-20 w-[420px] z-0 pointer-events-none select-none'
           />
 

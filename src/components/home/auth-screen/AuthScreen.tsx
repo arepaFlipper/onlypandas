@@ -3,7 +3,8 @@ import HeroSection from './HeroSection';
 import UnderlinedText from '@/components/decorators/UnderlinedText';
 import TodaysHighlight from './TodaysHighlight';
 import RotatedText from '@/components/decorators/RotatedText';
-import MasonryGrid from './MasonryGrid';
+import MasonryGrid from '@/components/home/auth-screen/MasonryGrid';
+import Features from '@/components/home/auth-screen/Features';
 
 const AuthScreen = () => {
   return (
@@ -28,6 +29,8 @@ const AuthScreen = () => {
               </p>
               <MasonryGrid />
             </div>
+
+            <Features />
 
           </div>
         </div>

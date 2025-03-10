@@ -13,7 +13,7 @@ const RotatedText = ({ children }: Props) => {
         '
         aria-hidden='true'
       />
-      <span className='relative uppercase'>{children}</span>
+      <span className='relative uppercase text-white'>{children}</span>
     </span>
   );
 };

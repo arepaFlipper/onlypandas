@@ -6,6 +6,7 @@ import RotatedText from '@/components/decorators/RotatedText';
 import MasonryGrid from '@/components/home/auth-screen/MasonryGrid';
 import Features from '@/components/home/auth-screen/Features';
 import Testimonials from '@/components/home/auth-screen/Testimonials';
+import Pricing from '@/components/Pricing';
 
 const AuthScreen = () => {
   return (
@@ -33,6 +34,7 @@ const AuthScreen = () => {
 
             <Features />
             <Testimonials />
+            <Pricing />
 
           </div>
         </div>

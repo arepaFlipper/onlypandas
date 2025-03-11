@@ -3,13 +3,14 @@ import UnderlinedText from "@/components/decorators/UnderlinedText";
 import Post from "./Post";
 import PostSkeleton from "@/components/skeletons/PostSkeleton";
 import { User } from "@prisma/client";
+import { posts } from "@/dummy_data";
 import { useQuery } from "@tanstack/react-query";
 import { getPostsAction } from "./actions";
 
 const Posts = ({ isSubscribed, admin }: { isSubscribed: boolean; admin: User }) => {
-  const { data: posts, isLoading } = {
-    data: [],
-    isLoading: true
+  const { data, isLoading } = {
+    data: posts,
+    isLoading: false
   }
   // const { data: posts, isLoading } = useQuery({
   // 	queryKey: ["posts"],

@@ -1,34 +1,24 @@
 "use client";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { user } from "@/dummy_data";
 import { Heart, ImageIcon, LockKeyholeIcon, MessageCircle, Trash } from "lucide-react";
 import { CldVideoPlayer } from "next-cloudinary";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { commentOnPostAction, deletePostAction, likePostAction } from "./actions";
+import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
-type PostWithComments = Prisma.PostGetPayload<{
-  include: {
-    comments: {
-      include: {
-        user: true;
-      };
-    };
-    likesList: true;
-  };
-}>;
 
-const Post = ({ post, isSubscribed, admin }: { post: PostWithComments; isSubscribed: boolean; admin: User }) => {
+const Post = ({ post, isSubscribed, admin }: { post: PostWithComments; isSubscribed: boolean; admin: any }) => {
   const [isLiked, setIsLiked] = useState(false);
-  const [likes, setLikes] = useState(post.likesList.length);
-  const [comments, setComments] = useState(post.comments);
-  const [comment, setComment] = useState("");
-  const { toast } = useToast();
+  const { user } = useKindeBrowserClient();
+
+  const isCommenting = false;
 
   return (
     <div className='flex flex-col gap-3 p-3 border-t'>
@@ -43,7 +33,7 @@ const Post = ({ post, isSubscribed, admin }: { post: PostWithComments; isSubscri
         <div className='flex gap-2 items-center'>
           <p className='text-zinc-400 text-xs md:text-sm tracking-tighter'>17.06.2024</p>
 
-          {admin.id === user?.id && (
+          {(admin.id === user?.id) && (
             <Trash
               className='w-5 h-5 text-muted-foreground hover:text-red-500 cursor-pointer'
               onClick={() => { }}

@@ -29,17 +29,16 @@ const SIDEBAR_LINKS = [
 ];
 
 const Sidebar = () => {
-
-  // const userProfile = await getUserProfileAction();
-
   const { user, isAuthenticated, isLoading } = useKindeBrowserClient();
 
   if (isLoading) return <div>Loading...</div>;
   if (!isAuthenticated) {
     redirect('/login');
   };
-  const isAdmin = process.env.ADMIN_EMAIL === user?.email;
+  const isAdmin = process.env.ADMIN_EMAIL !== user?.email;
 
+  console.log(`⭐%cSidebar.tsx:40 - user?.email`, 'font-weight:bold; background:#877800;color:#fff;'); //DELETEME:
+  console.log(user?.email); // DELETEME:
   return (
     <div
       className='flex lg:w-1/5 flex-col gap-3 px-2 border-r sticky

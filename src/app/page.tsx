@@ -5,8 +5,6 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 const Home = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-  console.log(`🏝️%cpage.tsx:8 - user`, 'font-weight:bold; background:#2ad500;color:#fff;'); //DELETEME:
-  console.log(user); // DELETEME:
   return (
     <main>
       {(user) ? <HomeScreen /> : <AuthScreen />}

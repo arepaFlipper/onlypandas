@@ -26,6 +26,8 @@ export async function middleware(req: NextRequest) {
 
 // Apply middleware only to protected routes
 export const config = {
-  matcher: ["/dashboard/:path*", "/profile/:path*"], // Define protected pages
+  matcher: [
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+  ], // Define protected pages
 };
 

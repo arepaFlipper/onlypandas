@@ -8,7 +8,7 @@ const HomeScreen = () => {
   return (
     <div>
       <LogoutLink>Logout</LogoutLink>
-      <BaseLayout renderRightPanel={false} >
+      <BaseLayout renderRightPanel={true} >
         <UserProfile />
         <Posts isSubscribed admin={admin} />
       </BaseLayout>

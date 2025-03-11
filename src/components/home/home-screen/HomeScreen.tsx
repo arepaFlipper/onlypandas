@@ -6,7 +6,7 @@ const HomeScreen = () => {
   return (
     <div>
       <LogoutLink>Logout</LogoutLink>
-      <BaseLayout>Home screen content</BaseLayout>
+      <BaseLayout renderRightPanel={false} >Home screen content</BaseLayout>
     </div>
   )
 };

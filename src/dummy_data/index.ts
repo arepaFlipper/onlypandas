@@ -18,11 +18,11 @@ export const user = {
 export const posts = [
   {
     id: 1,
-    text: "Post Content",
+    text: "1. Post Content",
     mediaType: "image",
-    image: "/featured/featured1.jpg",
+    mediaUrl: "/featured/featured1.jpg",
     likes: 12,
-    isPublic: true,
+    isPublic: false,
     createdAt: new Date(),
     comments: [
       {
@@ -35,7 +35,7 @@ export const posts = [
   },
   {
     id: 2,
-    text: "Post Content",
+    text: "2. Post Content",
     mediaType: "image",
     mediaUrl: "/featured/featured2.jpg",
     likes: 12,
@@ -52,7 +52,7 @@ export const posts = [
   },
   {
     id: 3,
-    text: "Post Content",
+    text: "3. Post Content",
     mediaType: "image",
     mediaUrl: "/featured/featured3.jpg",
     likes: 12,

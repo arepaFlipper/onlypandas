@@ -1,24 +1,38 @@
 "use client";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { Heart, ImageIcon, LockKeyholeIcon, MessageCircle, Trash } from "lucide-react";
 import { CldVideoPlayer } from "next-cloudinary";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { commentOnPostAction, deletePostAction, likePostAction } from "./actions";
 import { useToast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 
 
-const Post = ({ post, isSubscribed, admin }: { post: PostWithComments; isSubscribed: boolean; admin: any }) => {
+const Post = ({ post, isSubscribed, admin }: { post: PostWithComments; isSubscribed: boolean; admin: User }) => {
   const [isLiked, setIsLiked] = useState(false);
+  const [comment, setComment] = useState("");
   const { user } = useKindeBrowserClient();
-
   const isCommenting = false;
+
+  const { toast } = useToast();
+
+
+
+  const handleCommentSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!comment) return;
+  };
+
+  useEffect(() => {
+    if (post.likesList && user?.id) setIsLiked(post.likesList.length > 0);
+  }, [post.likesList, user?.id]);
 
   return (
     <div className='flex flex-col gap-3 p-3 border-t'>
@@ -33,7 +47,7 @@ const Post = ({ post, isSubscribed, admin }: { post: PostWithComments; isSubscri
         <div className='flex gap-2 items-center'>
           <p className='text-zinc-400 text-xs md:text-sm tracking-tighter'>17.06.2024</p>
 
-          {(admin.id === user?.id) && (
+          {admin.id === user?.id && (
             <Trash
               className='w-5 h-5 text-muted-foreground hover:text-red-500 cursor-pointer'
               onClick={() => { }}
@@ -73,7 +87,9 @@ const Post = ({ post, isSubscribed, admin }: { post: PostWithComments; isSubscri
             </div>
 
             <Link
-              className={buttonVariants({ className: "!rounded-full w-full font-bold text-white", })}
+              className={buttonVariants({
+                className: "!rounded-full w-full font-bold text-white",
+              })}
               href={"/pricing"}
             >
               Subscribe to unlock
@@ -88,6 +104,8 @@ const Post = ({ post, isSubscribed, admin }: { post: PostWithComments; isSubscri
             className={cn("w-5 h-5 cursor-pointer", { "text-red-500": isLiked, "fill-red-500": isLiked })}
             onClick={() => {
               if (!isSubscribed) return;
+              setIsLiked(!isLiked);
+              likePost();
             }}
           />
           <span className='text-xs text-zinc-400 tracking-tighter'>{post.likes}</span>
@@ -112,11 +130,11 @@ const Post = ({ post, isSubscribed, admin }: { post: PostWithComments; isSubscri
                   )}
                 </ScrollArea>
 
-                <form onSubmit={() => { }}>
+                <form onSubmit={handleCommentSubmission}>
                   <Input
                     placeholder='Add a comment'
-                    onChange={() => { }}
-                    value={{}}
+                    onChange={(e) => setComment(e.target.value)}
+                    value={comment}
                   />
 
                   <DialogFooter>

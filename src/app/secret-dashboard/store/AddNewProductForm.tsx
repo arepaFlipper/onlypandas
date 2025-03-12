@@ -4,8 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { CldUploadWidget, CloudinaryUploadWidgetInfo } from "next-cloudinary";
 import Image from "next/image";
 import { useState } from "react";
+import { addNewProductToStoreAction } from "../actions";
 import { useToast } from "@/components/ui/use-toast";
 
 const AddNewProductForm = () => {
@@ -13,10 +16,24 @@ const AddNewProductForm = () => {
   const [price, setPrice] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
-  const [isPending, setIsPending] = useState(false);
-
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
+  const { mutate: createProduct, isPending } = useMutation({
+    mutationKey: ["createProduct"],
+    mutationFn: async () => await addNewProductToStoreAction({ name, image: imageUrl, price }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["getAllProducts"] });
+      toast({
+        title: "Product Added",
+        description: "The product has been added successfully",
+      });
+
+      setName("");
+      setPrice("");
+      setImageUrl("");
+    },
+  });
 
   return (
     <>
@@ -27,6 +44,7 @@ const AddNewProductForm = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          createProduct();
         }}
       >
         <Card className='w-full max-w-md mx-auto'>
@@ -59,6 +77,23 @@ const AddNewProductForm = () => {
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
+
+            <CldUploadWidget
+              signatureEndpoint={"/api/sign-image"}
+              onSuccess={(result, { widget }) => {
+                setImageUrl((result.info as CloudinaryUploadWidgetInfo).secure_url);
+
+                widget.close();
+              }}
+            >
+              {({ open }) => {
+                return (
+                  <Button onClick={() => open()} variant={"outline"} type='button'>
+                    Upload an Image
+                  </Button>
+                );
+              }}
+            </CldUploadWidget>
 
             {imageUrl && (
               <div className='flex justify-center relative w-full h-96'>

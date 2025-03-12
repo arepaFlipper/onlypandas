@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Shirt, Home, LayoutDashboard, User } from "lucide-react";
@@ -14,6 +13,8 @@ import ModeToggle from "./ModeToggle";
 import LogoutButton from "./LogoutButton";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { redirect } from "next/navigation";
+import { getUserProfileAction } from "@/app/update-profile/actions";
+// import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 const SIDEBAR_LINKS = [
   {
@@ -28,17 +29,19 @@ const SIDEBAR_LINKS = [
   },
 ];
 
-const Sidebar = () => {
-  const { user, isAuthenticated, isLoading } = useKindeBrowserClient();
+type SidebarProps = {
+  userProfile: {
+    email?: string;
+    image?: string;
+  } | any;
+}
 
-  if (isLoading) return <div>Loading...</div>;
-  if (!isAuthenticated) {
-    redirect('/login');
-  };
-  const isAdmin = process.env.ADMIN_EMAIL !== user?.email;
+const Sidebar = ({ userProfile }: SidebarProps) => {
+  console.log(`🏓%cSidebar.tsx:40 - userProfile`, 'font-weight:bold; background:#877800;color:#fff;'); //DELETEME:
+  console.log(userProfile); // DELETEME:
 
-  console.log(`⭐%cSidebar.tsx:40 - user?.email`, 'font-weight:bold; background:#877800;color:#fff;'); //DELETEME:
-  console.log(user?.email); // DELETEME:
+  const isAdmin = process.env.ADMIN_EMAIL === userProfile?.email;
+
   return (
     <div
       className='flex lg:w-1/5 flex-col gap-3 px-2 border-r sticky
@@ -46,7 +49,7 @@ const Sidebar = () => {
     >
       <Link href='/update-profile' className='max-w-fit'>
         <Avatar className='mt-4 cursor-pointer'>
-          <AvatarImage src={"/user-placeholder.png"} className='object-cover' />
+          <AvatarImage src={userProfile?.image || "/user-placeholder.png"} className='object-cover' />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </Link>
@@ -84,7 +87,7 @@ const Sidebar = () => {
           <DropdownMenuContent>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <Link href={process.env.STRIPE_BILLING_PORTAL_LINK_DEV + "?prefilled_email=" + user?.email}>
+            <Link href={process.env.STRIPE_BILLING_PORTAL_LINK_DEV + "?prefilled_email=" + userProfile?.email}>
               <DropdownMenuItem>Billing</DropdownMenuItem>
             </Link>
             <LogoutButton />

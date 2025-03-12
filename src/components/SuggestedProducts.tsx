@@ -3,8 +3,6 @@ import { products } from "../dummy_data/index"
 
 const SuggestedProducts = async () => {
 
-  console.log(`🎪%cSuggestedProducts.tsx:6 - products`, 'font-weight:bold; background:#20df00;color:#fff;'); //DELETEME:
-  console.log(products); // DELETEME:
   return (
     <div
       className='lg:w-2/5 hidden lg:flex flex-col gap-3 px-2 sticky top-0 right-0

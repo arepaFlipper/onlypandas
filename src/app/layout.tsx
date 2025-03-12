@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "./AuthProvider";
+import 'next-cloudinary/dist/cld-video-player.css';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

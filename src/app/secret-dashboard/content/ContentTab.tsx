@@ -71,8 +71,7 @@ const ContentTab = () => {
               </div>
             </RadioGroup>
 
-            <CldUploadWidget
-              signatureEndpoint={"/api/sign-image"}
+            <CldUploadWidget signatureEndpoint={"/api/sign-image"}
               onSuccess={(result, { widget }) => {
                 setMediaUrl((result.info as CloudinaryUploadWidgetInfo).secure_url);
                 widget.close();

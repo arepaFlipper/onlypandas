@@ -1,49 +1,38 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
+import "next-cloudinary/dist/cld-video-player.css";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Footer from "@/components/Footer";
-import { AuthProvider } from "./AuthProvider";
-import 'next-cloudinary/dist/cld-video-player.css';
+import TanStackProvider from "@/providers/TanStackProvider";
+import { Toaster } from "@/components/ui/toaster";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "OnlyPandas",
-  description: "Save pandas from extinction",
+	title: "OnlyHorse - E-commerce Store",
+	description:
+		"OnlyHorse is a platform for horse lovers which includes a wide range of exclusive content and merchandise.",
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return (
-    <AuthProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Footer />
-
-          </ThemeProvider>
-        </body>
-      </html>
-    </AuthProvider>
-  );
+	return (
+		<html lang='en' suppressHydrationWarning>
+			<body className={inter.className}>
+				<ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+					<div className='h-screen flex flex-col'>
+						<div className='flex-1'>
+							<TanStackProvider>{children}</TanStackProvider>
+						</div>
+						<Footer />
+					</div>
+				</ThemeProvider>
+				<Toaster />
+			</body>
+		</html>
+	);
 }

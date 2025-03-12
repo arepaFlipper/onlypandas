@@ -2,9 +2,9 @@
 import ProductCard from "@/components/ProductCard";
 import ProductSkeleton from "@/components/skeletons/ProductSkeleton";
 import { X } from "lucide-react";
+import { products } from "@/dummy_data/index";
 
 const ExistingProducts = () => {
-  const products = [];
 
   const isLoading = false;
 

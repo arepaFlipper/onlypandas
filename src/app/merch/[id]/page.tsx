@@ -39,7 +39,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
         <h1 className='text-3xl text-center mt-20 mb-10 font-bold tracking-tight'>
           More product from{" "}
-          <UnderlinedText className='decoration-wavy underline-offset-8'>OnlyHorse</UnderlinedText>
+          <UnderlinedText className='decoration-wavy underline-offset-8'>OnlyPandas</UnderlinedText>
         </h1>
         <div className='grid gap-5 grid-cols-1 md:grid-cols-2'>
           {products.map((product) => (

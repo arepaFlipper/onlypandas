@@ -2,21 +2,13 @@
 import UnderlinedText from "@/components/decorators/UnderlinedText";
 import Post from "./Post";
 import PostSkeleton from "@/components/skeletons/PostSkeleton";
-import { User } from "@prisma/client";
 import { posts } from "@/dummy_data";
-import { useQuery } from "@tanstack/react-query";
-import { getPostsAction } from "./actions";
 
-const Posts = ({ isSubscribed, admin }: { isSubscribed: boolean; admin: User }) => {
+const Posts = ({ isSubscribed, admin }: { isSubscribed: boolean; admin }) => {
   const { data, isLoading } = {
     data: posts,
     isLoading: false
   }
-  // const { data: posts, isLoading } = useQuery({
-  // 	queryKey: ["posts"],
-  // 	queryFn: async () => await getPostsAction(),
-  // });
-
   return (
     <div>
       {!isLoading &&
@@ -42,7 +34,7 @@ const Posts = ({ isSubscribed, admin }: { isSubscribed: boolean; admin: User }) 
 
             <p className='text-center'>
               Stay tuned for more posts from{" "}
-              <span className='text-primary font-semibold text-xl'>OnlyHorse.</span> You can subscribe to
+              <span className='text-primary font-semibold text-xl'>OnlyPandas.</span> You can subscribe to
               access exclusive content when it's available.
             </p>
           </div>

@@ -19,7 +19,7 @@ const CoverImage = async ({ adminName }: { adminName: string }) => {
         src={"/featured/featured10.jpg"}
         className='h-full w-full object-cover select-none pointer-events-none'
         fill
-        alt='Horse Cover Image'
+        alt='Panda Cover Image'
       />
       <div
         className='absolute top-0 left-0 w-full h-full bg-gradient-to-b from-slate-800 to-transparent'

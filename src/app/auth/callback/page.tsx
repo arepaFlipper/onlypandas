@@ -1,5 +1,7 @@
 "use client";
+import { useQuery } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
+import { checkAuthStatus } from "./actions";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
@@ -7,18 +9,21 @@ import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 const Page = () => {
   const router = useRouter();
   const { user, isLoading: checkingAuth } = useKindeBrowserClient();
+  const { data } = useQuery({
+    queryKey: ["authCheck"],
+    queryFn: async () => await checkAuthStatus(),
+  });
 
   useEffect(() => {
-
-    const stripeUrl = localStorage.getItem("stripeRedirectUrl");
-    if (stripeUrl && user?.email && !checkingAuth) {
-      localStorage.removeItem("stripeRedirectUrl");
-      window.location.href = stripeUrl + "?prefilled_email=" + user.email;
-    } else if (!user && !checkingAuth) {
+    if (data?.success || data?.success === false) {
       router.push("/");
     }
-  }, [router, checkingAuth, user]);
 
+  }, [data, router]);
+
+  if (!checkingAuth && data?.success) {
+    return router.push("/");
+  }
 
   return (
     <div className='mt-20 w-full flex justify-center'>

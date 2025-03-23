@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "OnlyPandas - E-commerce Store",
   description:
-    "OnlyPandas is a platform for horse lovers which includes a wide range of exclusive content and merchandise.",
+    "OnlyPandas is a platform for panda lovers which includes a wide range of exclusive content and merchandise.",
 };
 
 export default function RootLayout({

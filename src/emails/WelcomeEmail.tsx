@@ -23,7 +23,7 @@ const WelcomeEmail = ({
         <Container style={container}>
           <Section style={message}>
             <Img
-              src={`${BASE_URL}/horse-1.png`}
+              src={`${BASE_URL}/panda-1.png`}
               // todo => delete this one below
               // src={`https://i.ibb.co/CV1mKKY/horse-1.jpg`}
               width='600'

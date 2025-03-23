@@ -16,7 +16,7 @@ const UserProfile = async () => {
 
   return (
     <div className='flex flex-col'>
-      <CoverImage adminName={admin?.name!} />
+      <CoverImage adminName={admin?.name || ""} />
 
       <div className='flex flex-col p-4'>
         <div className='flex flex-col md:flex-row gap-4 justify-between'>
@@ -46,7 +46,7 @@ const UserProfile = async () => {
           <p className='text-lg font-semibold'>{admin?.name}</p>
           <p className='text-sm mt-2 md:text-md'>
             Discover daily tips and tricks for pandas health and care, along with insights into my personal
-            routine with my horses. Subscribe now to gain access to exclusive content and become part of the
+            routine with my pandas. Subscribe now to gain access to exclusive content and become part of the
             community.
           </p>
         </div>

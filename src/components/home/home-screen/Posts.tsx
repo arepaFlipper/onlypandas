@@ -35,7 +35,7 @@ const Posts = ({ isSubscribed, admin }: { isSubscribed: boolean; admin: User }) 
             <p className='text-center'>
               Stay tuned for more posts from{" "}
               <span className='text-primary font-semibold text-xl'>OnlyPandas.</span> You can subscribe to
-              access exclusive content when it's available.
+              access exclusive content when it&#39;s available.
             </p>
           </div>
         </div>

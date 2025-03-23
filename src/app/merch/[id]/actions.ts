@@ -11,7 +11,7 @@ export async function createCheckoutSessionAction({ productId, size }: { product
 
   const product = await prisma.product.findUnique({ where: { id: productId } });
 
-  if (!product) throw new Error("Product not found");
+  if (!product) throw new Error("Product of size " + size + " not found");
 
   return { url: `/merch/${product.id}` };
 }

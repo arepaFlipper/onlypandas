@@ -1,7 +1,8 @@
 import type { Config } from "tailwindcss";
+import tailwindAnimated from "tailwindcss-animated";
 
 const config = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
@@ -83,7 +84,7 @@ const config = {
     },
   },
   plugins: [
-    require('tailwindcss-animated')
+    tailwindAnimated
   ],
 } satisfies Config;
 

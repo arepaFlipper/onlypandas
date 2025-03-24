@@ -25,7 +25,7 @@ const WelcomeEmail = ({
             <Img
               src={`${BASE_URL}/panda-1.png`}
               // todo => delete this one below
-              // src={`https://i.ibb.co/CV1mKKY/horse-1.jpg`}
+              // src={`https://i.ibb.co/CV1mKKY/panda-1.jpg`}
               width='600'
               height='400'
               alt='welcome icon'

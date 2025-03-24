@@ -5,7 +5,13 @@ import ProductCheckout from "./ProductCheckout";
 import prisma from "@/db/prisma";
 import { notFound } from "next/navigation";
 
-const Page = async ({ params }: { params: { id: string } }) => {
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
+const Page = async ({ params }: any) => {
   const currentProduct = await prisma.product.findUnique({
     where: {
       id: params.id,

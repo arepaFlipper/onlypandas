@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Shirt, Home, LayoutDashboard } from "lucide-react";
 import UserMenu from "./UserMenu";
+import MessagesLink from "./chat/MessagesLink";
 
 const SIDEBAR_LINKS = [
   { icon: Home, label: "Home", href: "/" },
@@ -43,6 +44,8 @@ const Sidebar = ({ userProfile }: SidebarProps) => {
           <LayoutDashboard className='w-6 h-6' />
           <span className='hidden lg:block'>Dashboard</span>
         </Link>
+
+        <MessagesLink />
       </nav>
     </div>
   );

@@ -3,19 +3,48 @@ import UnderlinedText from "@/components/decorators/UnderlinedText";
 import Post from "./Post";
 import PostSkeleton from "@/components/skeletons/PostSkeleton";
 import { User } from "@/lib/types";
-import { useQuery } from "@tanstack/react-query";
-import { getPostsAction } from "./actions";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useEffect, useRef } from "react";
+import { getPaginatedPostsAction } from "./actions";
 
 const Posts = ({ isSubscribed, admin }: { isSubscribed: boolean; admin: User }) => {
-  const { data: posts, isLoading } = useQuery({
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ["posts"],
-    queryFn: async () => await getPostsAction(),
+    queryFn: async ({ pageParam }) => await getPaginatedPostsAction(pageParam),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.nextPage,
   });
+
+  const posts = data?.pages.flatMap((page) => page.posts);
+
+  // Fetch the next page when the sentinel below the last post scrolls into view
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel || !hasNextPage) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isFetchingNextPage) fetchNextPage();
+      },
+      { rootMargin: "300px" }
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
     <div>
       {!isLoading &&
         posts?.map((post) => <Post key={post.id} post={post} admin={admin} isSubscribed={isSubscribed} />)}
+
+      <div ref={sentinelRef} aria-hidden='true' />
+
+      {isFetchingNextPage && (
+        <div className='mt-10 px-3 flex flex-col gap-10'>
+          <PostSkeleton />
+        </div>
+      )}
 
       {isLoading && (
         <div className='mt-10 px-3 flex flex-col gap-10'>

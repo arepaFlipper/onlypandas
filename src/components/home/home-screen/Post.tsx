@@ -100,13 +100,20 @@ const Post = ({ post, isSubscribed, admin }: { post: PostWithComments; isSubscri
 
       {(post.isPublic || isSubscribed) && post.mediaUrl && post.mediaType === "image" && (
         <div className='relative w-full pb-[56.25%] rounded-lg overflow-hidden'>
-          <Image src={post.mediaUrl} alt='Post Image' className='rounded-lg object-cover' fill />
+          <Image
+            src={post.mediaUrl}
+            alt='Post Image'
+            className='rounded-lg object-cover'
+            fill
+            loading='lazy'
+            sizes='(max-width: 768px) 100vw, 50vw'
+          />
         </div>
       )}
 
       {(post.isPublic || isSubscribed) && post.mediaUrl && post.mediaType === "video" && (
         <div className='w-full mx-auto'>
-          <video src={post.mediaUrl} controls className='rounded-md w-full' />
+          <video src={post.mediaUrl} controls preload='none' className='rounded-md w-full' />
         </div>
       )}
 

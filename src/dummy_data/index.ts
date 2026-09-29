@@ -1,3 +1,5 @@
+import type { PostWithComments } from "@/lib/types";
+
 export const admin = {
   id: "admin-1",
   name: "Cristian F. Tovar",
@@ -16,7 +18,53 @@ export const user = {
   updatedAt: new Date(),
 };
 
-export const posts = [
+// Remaining pictures in public/featured, turned into extra feed posts for the infinite scroll
+const extraFeaturedImages = [
+  "featured4.jpg",
+  "featured5.jpg",
+  "featured6.jpg",
+  "featured7.jpg",
+  "featured8.jpg",
+  "featured9.jpg",
+  "featured10.jpg",
+  "featured11.jpg",
+  "featured12.jpg",
+  "featured13.jpg",
+  "featured14.jpg",
+  "featured15.jpg",
+  "featured3.jpeg",
+  "featured13.jpeg",
+  "featured4.webp",
+  "featured11.webp",
+  "panda8.webp",
+  "6990634-panda-hug.webp",
+  "mm9978_230115_06903.webp",
+  "images.jpeg",
+];
+
+const extraPostTexts = [
+  "Snack time! Nothing beats fresh bamboo 🎋",
+  "Nap mode: activated 😴",
+  "Climbing lessons in progress 🌳",
+  "Who wants a panda hug? 🤗",
+  "Rainy day vibes at the sanctuary 🌧️",
+  "Caught in the middle of a very serious roll 🐼",
+];
+
+const extraPosts: PostWithComments[] = extraFeaturedImages.map((file, i) => ({
+  id: `post-${i + 4}`,
+  text: extraPostTexts[i % extraPostTexts.length],
+  mediaType: "image",
+  mediaUrl: `/featured/${file}`,
+  likes: 15 + ((i * 37) % 90),
+  isPublic: i % 3 === 0,
+  userId: "admin-1",
+  createdAt: new Date(),
+  likesList: [],
+  comments: [],
+}));
+
+export const posts: PostWithComments[] = [
   {
     id: "post-1",
     text: "Behind-the-scenes look at our pandas' morning routine! 🐼",
@@ -83,6 +131,7 @@ export const posts = [
     likesList: [],
     comments: [],
   },
+  ...extraPosts,
 ];
 
 export const products = [

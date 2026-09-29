@@ -6,6 +6,19 @@ export async function getPostsAction() {
   return posts;
 }
 
+// Not exported: "use server" files may only export async functions
+const POSTS_PER_PAGE = 4;
+
+export async function getPaginatedPostsAction(page: number) {
+  const start = page * POSTS_PER_PAGE;
+  const end = start + POSTS_PER_PAGE;
+
+  return {
+    posts: posts.slice(start, end),
+    nextPage: end < posts.length ? page + 1 : null,
+  };
+}
+
 export async function deletePostAction(postId: string) {
   return { success: true };
 }

@@ -53,16 +53,17 @@ const RecentSubscriptions = async () => {
   const recentSubscriptions = [
     {
       user: {
-        name: "John Doe",
+        name: "Luisa Agudelo",
         email: "john@email.com",
-        image: "",
+        image: "https://estaticos.elcolombiano.com/binrepository/780x570/1c0/780d565/none/11101/VOCL/luisagudelo_49955047_20260217103320.jpg",
       },
-      price: 10_00,
+      price: 5_00,
     },
     {
       user: {
-        name: "Jane Doe",
-        email: "jane@email.com",
+        name: "Sydney Sweeney",
+        email: "Sydney_Sweeney@email.com",
+        image: "https://media.vanityfair.com/photos/69c9572bbc53344f43aca193/master/w_2240,c_limit/2234938362",
       },
       price: 20_00,
     },
@@ -104,19 +105,19 @@ const RecentSales = async () => {
   const recentSales = [
     {
       user: {
-        name: "John Doe",
+        name: "Karoline Leavitt",
         email: "john@email.com",
-        image: "",
+        image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ea/Official_portrait_of_Karoline_Leavitt%2C_2025_%28cropped%29%282%29.jpg/250px-Official_portrait_of_Karoline_Leavitt%2C_2025_%28cropped%29%282%29.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail",
       },
       price: 10_00,
     },
     {
       user: {
-        name: "Jane Doe",
+        name: "Shakira",
         email: "jane@email.com",
-        image: "",
+        image: "https://media.elcomercio.com/wp-content/uploads/2026/02/shakira-El-Comercio-1024x683.jpg",
       },
-      price: 20_00,
+      price: 30_00,
     },
   ];
 

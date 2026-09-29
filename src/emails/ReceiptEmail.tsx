@@ -1,4 +1,4 @@
-import { ShippingAddress } from "@prisma/client";
+import { ShippingAddress } from "@/lib/types";
 import {
   Body,
   Container,

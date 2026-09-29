@@ -1,29 +1,15 @@
 services:
-  # onlypandas_api:
-  #   build:
-  #     context: .
-  #     dockerfile: onlypandas.Dockerfile
-  #   container_name: onlypandas_api
-  #   ports:
-  #     - 3033:3000
-  #   env_file:
-  #     - .env.local
-  #   depends_on:
-  #     - db
-  #   volumes:
-  #     - .:/usr/src/app
-  #     - /usr/src/app/node_modules
-  #
-  db:
-    image: postgres:14
-    container_name: onlypandas_db
+  app:
+    build:
+      context: .
+      dockerfile: onlypandas.Dockerfile
+    container_name: onlypandas_app
     ports:
-      - 5423:5432
+      - "3033:3000"
     volumes:
-      - pgdata:/var/lib/postgresql/data
-    env_file:
-      - .env
-
-volumes:
-  pgdata:
-
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
+    environment:
+      - WATCHPACK_POLLING=true
+    command: npm run dev

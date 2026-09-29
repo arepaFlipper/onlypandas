@@ -2,28 +2,12 @@ import BaseLayout from "@/components/BaseLayout";
 import ProductCard from "@/components/ProductCard";
 import UnderlinedText from "@/components/decorators/UnderlinedText";
 import ProductCheckout from "./ProductCheckout";
-import prisma from "@/db/prisma";
+import { products } from "@/dummy_data/index";
 import { notFound } from "next/navigation";
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
-
 const Page = async ({ params }: any) => {
-  const currentProduct = await prisma.product.findUnique({
-    where: {
-      id: params.id,
-    },
-  });
-
-  const products = await prisma.product.findMany({
-    where: {
-      isArchived: false,
-      id: { not: params.id },
-    },
-  });
+  const currentProduct = products.find((p) => p.id === params.id);
+  const otherProducts = products.filter((p) => !p.isArchived && p.id !== params.id);
 
   if (!currentProduct || currentProduct.isArchived) return notFound();
 
@@ -37,7 +21,7 @@ const Page = async ({ params }: any) => {
           <UnderlinedText className='decoration-wavy underline-offset-8'>OnlyPandas</UnderlinedText>
         </h1>
         <div className='grid gap-5 grid-cols-1 md:grid-cols-2'>
-          {products.map((product) => (
+          {otherProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

@@ -17,13 +17,13 @@ const HeroSection = () => {
             className='mt-20 w-[420px] z-0 pointer-events-none select-none'
           />
 
-          <p className='text-2xl md:text-3xl text-balance'>
+          <p className='text-2xl md:text-3xl text-balance [-webkit-text-stroke:4px_white] [paint-order:stroke_fill]'>
             Hey! Sign up to support your favorite {" "}
-            <span className='bg-sky-500 px-2 font-bold text-white'>creators</span>
+            <span className='bg-sky-500 px-2 font-bold text-white [-webkit-text-stroke:0]'>creators</span>
           </p>
-          <p className='text-2xl md:text-3xl mb-32 leading-snug text-balance'>
-            Built for <span className='bg-stone-800 font-bold px-2 text-white whitespace-nowrap'>Pandas 🐼</span> and{" "}
-            <span className='bg-red-500 px-2 font-bold text-white'>OTHERS 😏</span>
+          <p className='text-2xl md:text-3xl mb-32 leading-snug text-balance [-webkit-text-stroke:4px_white] [paint-order:stroke_fill]'>
+            Built for <span className='bg-stone-800 font-bold px-2 text-white whitespace-nowrap [-webkit-text-stroke:0]'>Pandas 🐼</span> and{" "}
+            <span className='bg-red-500 px-2 font-bold text-white [-webkit-text-stroke:0]'>OTHERS 😏</span>
           </p>
           <AuthButtons />
         </div>

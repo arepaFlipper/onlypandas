@@ -1,42 +1,22 @@
-import prisma from "@/db/prisma";
 import { Heart, Image as ImageIcon, Video } from "lucide-react";
 import Image from "next/image";
+import { posts } from "@/dummy_data/index";
 
 const CoverImage = async ({ adminName }: { adminName: string }) => {
-  const imageCount = await prisma.post.count({
-    where: {
-      mediaType: "image",
-    },
-  });
-
-  const videoCount = await prisma.post.count({
-    where: {
-      mediaType: "video",
-    },
-  });
-
-  // const totalLikes = await prisma.like.count();
-
-  const totalLikes = await prisma.post.aggregate({
-    _sum: {
-      likes: true,
-    },
-  });
+  const imageCount = posts.filter((p) => p.mediaType === "image").length;
+  const videoCount = posts.filter((p) => p.mediaType === "video").length;
+  const totalLikes = posts.reduce((sum, p) => sum + p.likes, 0);
 
   function formatNumber(num: number) {
-    if (num >= 1000000) {
-      return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
-    }
-    if (num >= 1000) {
-      return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
-    }
+    if (num >= 1000000) return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+    if (num >= 1000) return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
     return num.toString();
   }
 
   return (
     <div className='h-44 overflow-hidden relative'>
       <Image
-        src={"/featured/featured10.jpg"}
+        src={"/Panda_cover.jpg"}
         className='h-full w-full object-cover select-none pointer-events-none'
         fill
         alt='Panda Cover Image'
@@ -66,7 +46,7 @@ const CoverImage = async ({ adminName }: { adminName: string }) => {
               <span className='text-xs'>•</span>
               <div className='flex items-center gap-1'>
                 <Heart className='w-4 h-4' />
-                <span className='text-sm font-bold'>{formatNumber(totalLikes._sum.likes || 0)}</span>
+                <span className='text-sm font-bold'>{formatNumber(totalLikes)}</span>
               </div>
             </div>
           </div>

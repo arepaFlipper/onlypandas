@@ -2,18 +2,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import CoverImage from "./CoverImage";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import prisma from "@/db/prisma";
-import { getUserProfileAction } from "@/app/update-profile/actions";
+import { admin, user } from "@/dummy_data/index";
 
-const UserProfile = async () => {
-  const admin = await prisma.user.findUnique({
-    where: {
-      email: process.env.ADMIN_EMAIL!,
-    },
-  });
-
-  const currentUser = await getUserProfileAction();
-
+const UserProfile = () => {
   return (
     <div className='flex flex-col'>
       <CoverImage adminName={admin?.name || ""} />
@@ -26,7 +17,7 @@ const UserProfile = async () => {
           </Avatar>
 
           <div className='flex'>
-            {!currentUser?.isSubscribed && (
+            {!user?.isSubscribed && (
               <Button asChild className='rounded-full flex gap-10'>
                 <Link href={"/pricing"}>
                   <span className='uppercase font-semibold tracking-wide'>Subscribe</span>
@@ -34,7 +25,7 @@ const UserProfile = async () => {
               </Button>
             )}
 
-            {currentUser?.isSubscribed && (
+            {user?.isSubscribed && (
               <Button className='rounded-full flex gap-10' variant={"outline"}>
                 <span className='uppercase font-semibold tracking-wide'>Subscribed</span>
               </Button>

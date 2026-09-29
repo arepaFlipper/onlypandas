@@ -2,7 +2,7 @@
 import UnderlinedText from "@/components/decorators/UnderlinedText";
 import Post from "./Post";
 import PostSkeleton from "@/components/skeletons/PostSkeleton";
-import { User } from "@prisma/client";
+import { User } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 import { getPostsAction } from "./actions";
 

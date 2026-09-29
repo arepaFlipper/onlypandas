@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start",
     "email": "email dev --dir src/emails",
-    "postinstall": "prisma generate",
     "lint": "next lint"
   },
   "dependencies": {

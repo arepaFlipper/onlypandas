@@ -1,13 +1,13 @@
 "use client";
 
-import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
+import Link from "next/link";
 import { DropdownMenuItem } from "./ui/dropdown-menu";
 
 const LogoutButton = () => {
-	return (
-		<LogoutLink>
-			<DropdownMenuItem>Logout</DropdownMenuItem>
-		</LogoutLink>
-	);
+  return (
+    <Link href='/'>
+      <DropdownMenuItem>Logout</DropdownMenuItem>
+    </Link>
+  );
 };
 export default LogoutButton;

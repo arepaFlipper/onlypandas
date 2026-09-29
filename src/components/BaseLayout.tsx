@@ -1,15 +1,14 @@
 import { ReactNode } from "react";
 import Sidebar from "./Sidebar";
 import SuggestedProducts from "./SuggestedProducts";
-import { getUserProfileAction } from "@/app/update-profile/actions";
+import { user as userProfile } from "@/dummy_data/index";
 
 type Props = {
   children: ReactNode;
   renderRightPanel?: boolean;
 };
 
-const BaseLayout = async ({ children, renderRightPanel = true }: Props) => {
-  const userProfile = await getUserProfileAction();
+const BaseLayout = ({ children, renderRightPanel = true }: Props) => {
   return (
     <div className="flex max-w-2xl lg:max-w-7xl mx-auto relative">
       <Sidebar userProfile={userProfile} />

@@ -1,15 +1,7 @@
-"use client";
-
-import { CldVideoPlayer } from "next-cloudinary";
-
 const TodaysHighlight = () => {
   return (
-    <div className='w-full md:w-3/4 mx-auto'>
-      <CldVideoPlayer
-        autoplay muted loop
-        width='960' height='540'
-        className='rounded-md' src='paozqqnwmpuczsojpe2k'
-      />
+    <div className='w-full md:w-3/4 mx-auto rounded-xl overflow-hidden bg-muted h-64 flex items-center justify-center'>
+      <p className='text-muted-foreground text-lg'>Featured Video 🐼</p>
     </div>
   );
 };

@@ -2,11 +2,10 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { Post as PostType, Prisma, User } from "@prisma/client";
+import { PostWithComments, User } from "@/lib/types";
+import { user as currentUser } from "@/dummy_data/index";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Heart, ImageIcon, LockKeyholeIcon, MessageCircle, Trash } from "lucide-react";
-import { CldVideoPlayer } from "next-cloudinary";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -17,21 +16,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import Comment from "./Comment";
 
-type PostWithComments = Prisma.PostGetPayload<{
-  include: {
-    comments: {
-      include: {
-        user: true;
-      };
-    };
-    likesList: true;
-  };
-}>;
-
 const Post = ({ post, isSubscribed, admin }: { post: PostWithComments; isSubscribed: boolean; admin: User }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [comment, setComment] = useState("");
-  const { user } = useKindeBrowserClient();
+  const user = currentUser;
 
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -41,17 +29,10 @@ const Post = ({ post, isSubscribed, admin }: { post: PostWithComments; isSubscri
     mutationFn: async () => await deletePostAction(post.id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
-      toast({
-        title: "Success",
-        description: "Post deleted successfully",
-      });
+      toast({ title: "Success", description: "Post deleted successfully" });
     },
     onError: (error) => {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
+      toast({ title: "Error", description: error.message, variant: "destructive" });
     },
   });
 
@@ -66,11 +47,7 @@ const Post = ({ post, isSubscribed, admin }: { post: PostWithComments; isSubscri
       queryClient.invalidateQueries({ queryKey: ["posts"] });
     },
     onError: (error) => {
-      toast({
-        title: "Error",
-        description: error.message || "Something went wrong. Please try again.",
-        variant: "destructive",
-      });
+      toast({ title: "Error", description: error.message || "Something went wrong.", variant: "destructive" });
     },
   });
 
@@ -80,17 +57,10 @@ const Post = ({ post, isSubscribed, admin }: { post: PostWithComments; isSubscri
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
       setComment("");
-      toast({
-        title: "Success",
-        description: "Comment added successfully",
-      });
+      toast({ title: "Success", description: "Comment added successfully" });
     },
     onError: (error) => {
-      toast({
-        title: "Error",
-        description: error.message || "Something went wrong. Please try again.",
-        variant: "destructive",
-      });
+      toast({ title: "Error", description: error.message || "Something went wrong.", variant: "destructive" });
     },
   });
 
@@ -136,16 +106,12 @@ const Post = ({ post, isSubscribed, admin }: { post: PostWithComments; isSubscri
 
       {(post.isPublic || isSubscribed) && post.mediaUrl && post.mediaType === "video" && (
         <div className='w-full mx-auto'>
-          <CldVideoPlayer width='960' height={540} className='rounded-md' src={post.mediaUrl} />
+          <video src={post.mediaUrl} controls className='rounded-md w-full' />
         </div>
       )}
 
-      {(!isSubscribed && !post.isPublic) && (
-        <div
-          className='w-full bg-slate-800 relative h-96 rounded-md bg-of flex flex-col justify-center
-          items-center px-5 overflow-hidden
-        '
-        >
+      {!isSubscribed && !post.isPublic && (
+        <div className='w-full bg-slate-800 relative h-96 rounded-md flex flex-col justify-center items-center px-5 overflow-hidden'>
           <LockKeyholeIcon className='w-16 h-16 text-zinc-400 mb-20 z-0' />
 
           <div aria-hidden='true' className='opacity-60 absolute top-0 left-0 w-full h-full bg-stone-800' />
@@ -157,9 +123,7 @@ const Post = ({ post, isSubscribed, admin }: { post: PostWithComments; isSubscri
             </div>
 
             <Link
-              className={buttonVariants({
-                className: "!rounded-full w-full font-bold text-white",
-              })}
+              className={buttonVariants({ className: "!rounded-full w-full font-bold text-white" })}
               href={"/pricing"}
             >
               Subscribe to unlock

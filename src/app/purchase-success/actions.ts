@@ -1,25 +1,20 @@
 "use server";
 
-import prisma from "@/db/prisma";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { products } from "@/dummy_data/index";
 
 export async function checkProductPaidStatus(orderId: string) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  if (!orderId) return false;
 
-  if (!user) throw new Error("Unauthorized - you must be logged in");
-
-  const order = await prisma.order.findUnique({
-    where: { id: orderId },
-    select: {
-      product: true,
-      isPaid: true,
-      size: true,
-      shippingAddress: true,
+  return {
+    product: products[0],
+    isPaid: true,
+    size: "md",
+    shippingAddress: {
+      address: "123 Demo Street",
+      city: "San Francisco",
+      state: "CA",
+      postalCode: "94102",
+      country: "US",
     },
-  });
-
-  if (!order) return false;
-
-  return order;
+  };
 }

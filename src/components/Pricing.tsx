@@ -44,14 +44,8 @@ export const tiers: PricingTier[] = [
     description: `Get access to our exclusive content. Cancel anytime.`,
     features: [`Access to all premium content`, "Comment your thoughts", "Like your favorite posts"],
     cta: `Join Us`,
-    monthlyUrl:
-      process.env.NODE_ENV === "development"
-        ? process.env.NEXT_PUBLIC_STRIPE_DEV_MONTHLY_URL!
-        : process.env.NEXT_PUBLIC_STRIPE_LIVE_MONTHLY_URL!,
-    yearlyUrl:
-      process.env.NODE_ENV === "development"
-        ? process.env.NEXT_PUBLIC_STRIPE_DEV_YEARLY_URL!
-        : process.env.NEXT_PUBLIC_STRIPE_LIVE_YEARLY_URL!,
+    monthlyUrl: "#",
+    yearlyUrl: "#",
   },
 ];
 
@@ -196,19 +190,8 @@ export default function Pricing() {
                     </span>
                   </p>
 
-                  <Button
-                    asChild
-                    size='lg'
-                    className='my-3'
-                    onClick={() => {
-                      if (frequency.value === "1") {
-                        saveStripeLinkToLocalStorage(monthlyUrl);
-                      } else {
-                        saveStripeLinkToLocalStorage(yearlyUrl);
-                      }
-                    }}
-                  >
-                    <Link href={"/api/auth/login"}>{tier.cta}</Link>
+                  <Button size='lg' className='my-3' asChild>
+                    <a href='/api/auth/login'>{tier.cta}</a>
                   </Button>
                 </div>
               </div>

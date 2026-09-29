@@ -1,13 +1,14 @@
+import { cookies } from "next/headers";
 import HomeScreen from "@/components/home/home-screen/HomeScreen";
 import AuthScreen from "@/components/home/auth-screen/AuthScreen";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 const Home = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const cookieStore = await cookies();
+  const isLoggedIn = cookieStore.get("demo_logged_in")?.value === "true";
+
   return (
     <main>
-      {(user) ? <HomeScreen /> : <AuthScreen />}
+      {isLoggedIn ? <HomeScreen /> : <AuthScreen />}
     </main>
   );
 };

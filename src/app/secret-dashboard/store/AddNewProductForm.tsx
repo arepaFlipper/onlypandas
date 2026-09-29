@@ -5,8 +5,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { CldUploadWidget, CloudinaryUploadWidgetInfo } from "next-cloudinary";
-import Image from "next/image";
 import { useState } from "react";
 import { addNewProductToStoreAction } from "../actions";
 import { useToast } from "@/components/ui/use-toast";
@@ -24,11 +22,7 @@ const AddNewProductForm = () => {
     mutationFn: async () => await addNewProductToStoreAction({ name, image: imageUrl, price }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["getAllProducts"] });
-      toast({
-        title: "Product Added",
-        description: "The product has been added successfully",
-      });
-
+      toast({ title: "Product Added", description: "The product has been added successfully" });
       setName("");
       setPrice("");
       setImageUrl("");
@@ -41,16 +35,11 @@ const AddNewProductForm = () => {
         Add <RotatedText>New</RotatedText> Product
       </p>
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          createProduct();
-        }}
-      >
+      <form onSubmit={(e) => { e.preventDefault(); createProduct(); }}>
         <Card className='w-full max-w-md mx-auto'>
           <CardHeader>
             <CardTitle className='text-2xl'>New Merch</CardTitle>
-            <CardDescription>Add a new product to your store. Select only one image.</CardDescription>
+            <CardDescription>Add a new product to your store. Provide an image URL.</CardDescription>
           </CardHeader>
 
           <CardContent className='grid gap-4'>
@@ -78,26 +67,21 @@ const AddNewProductForm = () => {
               />
             </div>
 
-            <CldUploadWidget
-              signatureEndpoint={"/api/sign-image"}
-              onSuccess={(result, { widget }) => {
-                setImageUrl((result.info as CloudinaryUploadWidgetInfo).secure_url);
-
-                widget.close();
-              }}
-            >
-              {({ open }) => {
-                return (
-                  <Button onClick={() => open()} variant={"outline"} type='button'>
-                    Upload an Image
-                  </Button>
-                );
-              }}
-            </CldUploadWidget>
+            <div className='grid gap-2'>
+              <Label htmlFor='imageUrl'>Image URL</Label>
+              <Input
+                id='imageUrl'
+                type='url'
+                required
+                value={imageUrl}
+                placeholder='https://example.com/image.png'
+                onChange={(e) => setImageUrl(e.target.value)}
+              />
+            </div>
 
             {imageUrl && (
-              <div className='flex justify-center relative w-full h-96'>
-                <Image fill src={imageUrl} alt='Product Image' className='rounded-md object-contain' />
+              <div className='flex justify-center w-full'>
+                <img src={imageUrl} alt='Product Image' className='rounded-md object-contain max-h-96' />
               </div>
             )}
           </CardContent>
